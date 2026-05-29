@@ -113,7 +113,7 @@
       @apply bg-dark-100 rounded-xl overflow-hidden transition-transform duration-300 hover:scale-105;
 
       & img {
-        @apply w-full h-[280px] object-cover;
+        @apply w-full  h-[280px] object-cover;
       }
 
       & .content {
@@ -173,7 +173,7 @@
         }
 
         & .lang {
-          @apply text-light-100 font-medium;
+          @apply inline-block text-light-100 uppercase font-medium;
         }
       }
 
