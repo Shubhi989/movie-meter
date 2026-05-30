@@ -3,6 +3,7 @@ import { useDebounce } from 'react-use'
 import Search from './components/Search'
 import Spinner from './components/Spinner'
 import MovieCard from './components/MovieCard'
+import { ubdateSearchCount } from './appwrite.js'
 const API_BASE_URL = 'https://api.themoviedb.org/3' ;
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY ;
 const API_OPTIONS={
@@ -24,7 +25,7 @@ const [isLoading , setIsLoading]=useState(false);
    setErrorMessage('');
   try{
     const endpoint =query ? 
-   ` ${API_BASE_URL}/search/movie?query=${encodeURIComponent(query)}`:
+   `${API_BASE_URL}/search/movie?query=${encodeURIComponent(query)}`:
      `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
     const response = await fetch(endpoint,API_OPTIONS);
     if(!response.ok){
@@ -37,9 +38,12 @@ const [isLoading , setIsLoading]=useState(false);
       return;
     }
     setMovieList(data.results || []);
+    if(query&&data.results.length>0){
+      await ubdateSearchCount(query,data.results[0]);
+    }
   }
   catch(error){
-    console.error('Error Fetching Movies : ${error}');
+    console.error(`Error Fetching Movies : ${error}`);
     setErrorMessage('Error fetching movies . Try again!') ;
   } finally{
     setIsLoading(false);
