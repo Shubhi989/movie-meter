@@ -36,3 +36,15 @@ export const ubdateSearchCount = async (searchTerm, movie) => {
     console.error("Appwrite database error:", error);
   }
 };
+export const getTrendingMovies = async ()=> {
+  try{
+  const result= await database.listDocuments(DATABASE_ID,COLLECTION_ID,[
+    Query.limit(5),
+    Query.orderDesc("count")
+  ])
+  return result.documents;
+  }
+  catch(error){
+console.error(error);
+  }
+}
