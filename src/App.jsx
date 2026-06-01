@@ -93,7 +93,7 @@ const loadTrendingMovies= async ()=>{
         <h2>All Movies</h2>
         {
           isLoading?(<Spinner/>)
-          : errorMessage? (<p className='text-red-500'>{errorMessage}</p>)
+          : errorMessage? (<p className='text-red-600'>{errorMessage}</p>)
           : (
             <ul>
               {movieList.map((movie)=> (
